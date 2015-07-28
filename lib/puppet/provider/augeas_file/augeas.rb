@@ -9,7 +9,7 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
 
   desc 'Uses the Augeas API to generate a file from a base'
 
-  def need_apply?
+  def need_to_apply?
     # Parse file
     base_content = File.read(resource[:base])
     @new_content = nil
@@ -54,8 +54,6 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
 
     unless resource.noop?
       File.open(resource[:path], 'w') do |f|
-        debug "Writing content to #{f.path}"
-        #debug "Content=#{@new_content}"
         f.write(@new_content)
       end
     end

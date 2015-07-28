@@ -61,7 +61,7 @@ Puppet::Type.newtype(:augeas_file) do
     end
 
     def retrieve
-      provider.need_apply? ? :need_to_run : 0
+      provider.need_to_apply? ? :need_to_apply : 0
     end
 
     # Actually execute the command.
