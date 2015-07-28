@@ -23,14 +23,14 @@ Puppet::Type.newtype(:augeas_file) do
     defaultto ""
   end
 
-  newparam(:type_check) do
+  newparam(:type_check, :boolean => true) do
     desc "Whether augeas should perform typechecking. Defaults to false."
     newvalues(:true, :false)
 
     defaultto :false
   end
 
-  newparam(:show_diff, :boolean => true, :parent => Puppet::Parameter::Boolean) do
+  newparam(:show_diff, :boolean => true) do
     desc "Whether to display differences when the file changes, defaulting to
         true.  This parameter is useful for files that may contain passwords or
         other secret data, which might otherwise be included in Puppet reports or
