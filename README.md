@@ -40,6 +40,8 @@ and tune it to create a configuration file, idempotently.
 # Usage
 
 ```puppet
+# augeas_file doesn't manage file rights
+# use the file resource type for that
 file { '/etc/apt/sources.list.d/jessie.list':
   ensure => file,
   owner  => 'root',
