@@ -42,6 +42,9 @@ Puppet::Type.newtype(:augeas_file) do
 
   newparam(:changes) do
     desc 'The array of changes to apply to the base file'
+
+    defaultto []
+
   end
 
   # This is the actual meat of the code. It forces

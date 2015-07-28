@@ -8,6 +8,18 @@ Augeas_file resource type
 
 # Usage
 
+```puppet
+file { '/etc/apt/sources.list.d/jessie.list':
+  ensure => file,
+  owner  => 'root',
+  group  => 'root',
+} ->
+augeas_file { '/etc/apt/sources.list.d/jessie.list':
+  lens    => 'Aptsources.lns',
+  base    => '/usr/share/doc/apt/examples/sources.list',
+  changes => ['setm ./*[distribution] distribution jessie'],
+}
+```
 
 # Caveats
 
