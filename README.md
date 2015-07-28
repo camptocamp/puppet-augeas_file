@@ -24,7 +24,7 @@ augeas_file { '/etc/apt/sources.list.d/jessie.list':
 ```puppet
 file { '/var/www/blog/conf/userdir.conf':
   ensure => file,
-  owner  => 'root',
+  owner  => 'www-data',
   group  => 'root',
 } ->
 augeas_file { '/var/www/blog/conf/userdir.conf':
