@@ -8,7 +8,7 @@ Augeas_file resource type
 
 # What is this?
 
-There are various ways two main approaches when managing a file from Puppet:
+There are two main approaches when managing a file from Puppet:
 
 * Manage the file in parts:
   - native resource (`host`, `mailalias`, [augeasproviders](http://augeasproviders.com) resource types, etc.)
