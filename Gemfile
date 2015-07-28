@@ -21,6 +21,7 @@ group :development, :unit_tests do
   gem 'puppet-lint-file_source_rights-check',              :require => false
   gem 'puppet-lint-alias-check',                           :require => false
   gem 'rspec-puppet-facts',                                :require => false
+  gem 'github_changelog_generator',                        :require => false
 end
 
 group :system_tests do
