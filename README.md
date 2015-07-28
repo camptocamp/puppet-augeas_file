@@ -41,7 +41,3 @@ augeas_file { '/var/www/blog/conf/userdir.conf':
   ],
 }
 ```
-
-# Caveats
-
-NEEDS TESTS
