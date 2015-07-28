@@ -6,6 +6,11 @@ Augeas_file resource type
 [![Build Status](https://img.shields.io/travis/camptocamp/puppet-augeas_file/master.svg)](https://travis-ci.org/camptocamp/puppet-augeas_file)
 
 
+# Requirements
+
+- [Augeas](http://augeas.net) >= 1.0.0
+- ruby-augeas >= 0.5.0
+
 # Usage
 
 ```puppet
