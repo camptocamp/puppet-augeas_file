@@ -25,7 +25,6 @@ Puppet::Type.newtype(:augeas_file) do
 
   newparam(:type_check, :boolean => true) do
     desc "Whether augeas should perform typechecking. Defaults to false."
-    newvalues(:true, :false)
 
     defaultto :false
   end
