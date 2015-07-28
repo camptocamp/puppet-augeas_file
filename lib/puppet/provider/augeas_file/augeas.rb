@@ -19,7 +19,11 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
     flags |= Augeas::NO_MODL_AUTOLOAD
     Augeas.open(resource[:root], resource[:load_path], flags) do |aug|
       aug.set('/input', base_content)
-      aug.text_store(resource[:lens], '/input', '/parsed')
+      succ = aug.text_store(resource[:lens], '/input', '/parsed')
+      unless succ
+        err = aug.get('/augeas//error/message')
+        raise Puppet::Error, "Failed to parse content:\n#{err}"
+      end
       aug.set('/augeas/context', '/parsed')
 
       resource[:changes].each do |c|
@@ -28,7 +32,11 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
         aug.srun(c)
       end
 
-      aug.text_retrieve(resource[:lens], '/input', '/parsed', '/output')
+      succ = aug.text_retrieve(resource[:lens], '/input', '/parsed', '/output')
+      unless succ
+        err = aug.get('/augeas//error/message')
+        raise Puppet::Error, "Failed to get modified content:\n#{err}"
+      end
       @new_content = aug.get('/output')
     end
     cur_content = File.read(resource[:path]) if File.file?(resource[:path])
