@@ -21,6 +21,22 @@ augeas_file { '/etc/apt/sources.list.d/jessie.list':
 }
 ```
 
+```puppet
+file { '/var/www/blog/conf/userdir.conf':
+  ensure => file,
+  owner  => 'root',
+  group  => 'root',
+} ->
+augeas_file { '/var/www/blog/conf/userdir.conf':
+  base    => '/usr/share/doc/apache2.2-common/examples/apache2/extra/httpd-userdir.conf',
+  lens    => 'Httpd.lns',
+  changes => [
+    'set Directory/arg "\"/var/www/blog/htdocs\""',
+    'rm Directory/directive/arg[.="Indexes"]',
+  ],
+}
+```
+
 # Caveats
 
 NEEDS TESTS
