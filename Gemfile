@@ -19,6 +19,7 @@ group :development, :unit_tests do
   gem 'puppet-lint-version_comparison-check',              :require => false
   gem 'puppet-lint-fileserver-check',                      :require => false
   gem 'puppet-lint-file_source_rights-check',              :require => false
+  gem 'puppet-lint-alias-check',                           :require => false
   gem 'rspec-puppet-facts',                                :require => false
 end
 
@@ -40,7 +41,5 @@ if puppetversion = ENV['PUPPET_GEM_VERSION']
 else
   gem 'puppet', :require => false
 end
-
-gem 'github_changelog_generator', :require => false
 
 # vim:ft=ruby
