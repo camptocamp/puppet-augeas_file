@@ -54,18 +54,28 @@ augeas_file { '/etc/apt/sources.list.d/jessie.list':
 }
 ```
 
+You might want to wrap this in a defined resource type:
+
 ```puppet
-file { '/var/www/blog/conf/userdir.conf':
-  ensure => file,
-  owner  => 'www-data',
-  group  => 'root',
-} ->
-augeas_file { '/var/www/blog/conf/userdir.conf':
-  base    => '/usr/share/doc/apache2.2-common/examples/apache2/extra/httpd-userdir.conf',
-  lens    => 'Httpd.lns',
-  changes => [
-    'set Directory/arg "\"/var/www/blog/htdocs\""',
-    'rm Directory/directive/arg[.="Indexes"]',
-  ],
+define apache::userdir (
+  $directory,
+) {
+  file { $title:
+    ensure => file,
+    owner  => 'www-data',
+    group  => 'root',
+  } ->
+  augeas_file { $title:
+    base    => '/usr/share/doc/apache2.2-common/examples/apache2/extra/httpd-userdir.conf',
+    lens    => 'Httpd.lns',
+    changes => [
+      "set Directory/arg '\"${directory}\"'",
+      'rm Directory/directive/arg[.="Indexes"]',
+    ],
+  }
+}
+
+apache::userdir { '/var/www/blog/conf/userdir.conf':
+  directory => '/var/www/blog/htdocs',
 }
 ```
