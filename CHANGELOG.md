@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.3.0](https://github.com/camptocamp/puppet-augeas_file/tree/0.3.0) (2015-07-29)
+[Full Changelog](https://github.com/camptocamp/puppet-augeas_file/compare/0.2.0...0.3.0)
+
+**Implemented enhancements:**
+
+- Autorequire target and base files [\#2](https://github.com/camptocamp/puppet-augeas_file/issues/2)
+
 ## [0.2.0](https://github.com/camptocamp/puppet-augeas_file/tree/0.2.0) (2015-07-29)
 [Full Changelog](https://github.com/camptocamp/puppet-augeas_file/compare/0.1.0...0.2.0)
 
