@@ -24,6 +24,7 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
 
     fail "More than one lens found to manage #{resource[:path]}" if augeas_lenses.length > 1
     lens = resource[:lens] || augeas_lenses[0]
+    fail "No lens found to manage #{resource[:path]}" if lens.nil?
 
     flags = Augeas::NONE
     flags = Augeas::TYPE_CHECK if resource[:type_check] == :true
