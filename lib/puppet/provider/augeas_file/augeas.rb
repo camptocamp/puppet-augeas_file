@@ -32,6 +32,16 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
         aug.srun(c)
       end
 
+      # Changes from augeas resources
+      resource.catalog.resources.select do |r|
+        if r.is_a?(Puppet::Type.type(:augeas)) && r[:incl] == resource[:name]
+          Puppet.debug("Applying changes for augeas resource \"#{r[:name]}\"")
+          r[:changes].each do |c|
+            aug.srun(c)
+          end
+        end
+      end
+
       succ = aug.text_retrieve(resource[:lens], '/input', '/parsed', '/output')
       unless succ
         err = aug.get('/augeas//error/message')
