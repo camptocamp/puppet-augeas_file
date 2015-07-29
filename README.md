@@ -39,6 +39,11 @@ and tune it to create a configuration file, idempotently.
 
 # Usage
 
+## Standalone
+
+You can use `augeas_file` to manage a file entirely with one resource, listing
+Augeas changes in the `changes` parameter:
+
 ```puppet
 # augeas_file doesn't manage file rights
 # use the file resource type for that
@@ -79,3 +84,29 @@ apache::userdir { '/var/www/blog/conf/userdir.conf':
   directory => '/var/www/blog/htdocs',
 }
 ```
+
+
+## Triggering augeas resources
+
+The `augeas_file` has the possibility of working with other `augeas` resources whose `incl` parameter matches their name:
+
+
+```puppet
+augeas_file { '/var/www/blog/conf/userdir.conf':
+  base => '/usr/share/doc/apache2.2-common/examples/apache2/extra/httpd-userdir.conf',
+}
+
+augeas { 'userdir directory':
+  incl    => '/var/www/blog/conf/userdir.conf',
+  lens    => 'Httpd.lns',
+  changes => 'set Directory/arg "\"/var/www/blog/htdocs\""',
+}
+
+augeas { 'userdir no indexes':
+  incl    => '/var/www/blog/conf/userdir.conf',
+  lens    => 'Httpd.lns',
+  changes => 'rm Directory/directive/arg[.="Indexes"]',
+}
+```
+
+This allows to split the changes into individual resources.
