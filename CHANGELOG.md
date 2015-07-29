@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.2.0](https://github.com/camptocamp/puppet-augeas_file/tree/0.2.0) (2015-07-29)
+[Full Changelog](https://github.com/camptocamp/puppet-augeas_file/compare/0.1.0...0.2.0)
+
+**Implemented enhancements:**
+
+- Make it work with augeas/augeasproviders [\#1](https://github.com/camptocamp/puppet-augeas_file/issues/1)
+
 ## [0.1.0](https://github.com/camptocamp/puppet-augeas_file/tree/0.1.0) (2015-07-28)
 
 
