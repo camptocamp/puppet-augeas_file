@@ -38,7 +38,7 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
       end
       aug.set('/augeas/context', '/parsed')
 
-      resource[:changes].each do |c|
+      Array(resource[:changes]).each do |c|
         # We could also do aug.srun(resource[:changes].join("\n"))
         # but error checking will be better this way
         aug.srun(c)
@@ -47,7 +47,7 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
       # Changes from augeas resources
       augeas_resources.each do |r|
         Puppet.debug("Applying changes for augeas resource \"#{r[:name]}\"")
-        r[:changes].each do |c|
+        Array(r[:changes]).each do |c|
           aug.srun(c)
         end
       end
