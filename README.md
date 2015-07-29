@@ -51,7 +51,7 @@ file { '/etc/apt/sources.list.d/jessie.list':
   ensure => file,
   owner  => 'root',
   group  => 'root',
-} ->
+}
 augeas_file { '/etc/apt/sources.list.d/jessie.list':
   lens    => 'Aptsources.lns',
   base    => '/usr/share/doc/apt/examples/sources.list',
@@ -69,7 +69,7 @@ define apache::userdir (
     ensure => file,
     owner  => 'www-data',
     group  => 'root',
-  } ->
+  }
   augeas_file { $title:
     base    => '/usr/share/doc/apache2.2-common/examples/apache2/extra/httpd-userdir.conf',
     lens    => 'Httpd.lns',
@@ -92,6 +92,13 @@ The `augeas_file` has the possibility of working with other `augeas` resources w
 
 
 ```puppet
+file { '/var/www/blog/conf/userdir.conf':
+  ensure => file,
+  owner  => 'www-data',
+  group  => 'root',
+  mode   => '2570',
+}
+
 augeas_file { '/var/www/blog/conf/userdir.conf':
   base => '/usr/share/doc/apache2.2-common/examples/apache2/extra/httpd-userdir.conf',
 }

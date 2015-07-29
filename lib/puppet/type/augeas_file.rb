@@ -69,4 +69,8 @@ Puppet::Type.newtype(:augeas_file) do
       @resource.provider.write_changes
     end
   end
+
+  autorequire(:file) do
+    [self[:path], self[:base]]
+  end
 end
