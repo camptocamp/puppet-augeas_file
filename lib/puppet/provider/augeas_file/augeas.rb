@@ -14,12 +14,23 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
     base_content = File.read(resource[:base])
     @new_content = nil
 
+    augeas_resources = resource.catalog.resources.select { |r|
+      r.is_a?(Puppet::Type.type(:augeas)) && r[:incl] == resource[:name]
+    }
+
+    augeas_lenses = augeas_resources.map { |r|
+      r[:lens]
+    }.uniq
+
+    fail "More than one lens found to manage #{resource[:path]}" if augeas_lenses.length > 1
+    lens = resource[:lens] || augeas_lenses[0]
+
     flags = Augeas::NONE
     flags = Augeas::TYPE_CHECK if resource[:type_check] == :true
     flags |= Augeas::NO_MODL_AUTOLOAD
     Augeas.open(resource[:root], resource[:load_path], flags) do |aug|
       aug.set('/input', base_content)
-      succ = aug.text_store(resource[:lens], '/input', '/parsed')
+      succ = aug.text_store(lens, '/input', '/parsed')
       unless succ
         err = aug.get('/augeas//error/message')
         raise Puppet::Error, "Failed to parse content:\n#{err}"
@@ -33,16 +44,14 @@ Puppet::Type.type(:augeas_file).provide(:augeas) do
       end
 
       # Changes from augeas resources
-      resource.catalog.resources.select do |r|
-        if r.is_a?(Puppet::Type.type(:augeas)) && r[:incl] == resource[:name]
-          Puppet.debug("Applying changes for augeas resource \"#{r[:name]}\"")
-          r[:changes].each do |c|
-            aug.srun(c)
-          end
+      augeas_resources.each do |r|
+        Puppet.debug("Applying changes for augeas resource \"#{r[:name]}\"")
+        r[:changes].each do |c|
+          aug.srun(c)
         end
       end
 
-      succ = aug.text_retrieve(resource[:lens], '/input', '/parsed', '/output')
+      succ = aug.text_retrieve(lens, '/input', '/parsed', '/output')
       unless succ
         err = aug.get('/augeas//error/message')
         raise Puppet::Error, "Failed to get modified content:\n#{err}"
