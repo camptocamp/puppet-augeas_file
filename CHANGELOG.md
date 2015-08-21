@@ -1,3 +1,7 @@
+## 2015-08-21 - Release 0.3.1
+
+Use docker for acceptance tests
+
 # Change Log
 
 ## [0.3.0](https://github.com/camptocamp/puppet-augeas_file/tree/0.3.0) (2015-07-29)

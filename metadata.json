@@ -1,6 +1,6 @@
 {
   "name": "camptocamp-augeas_file",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Camptocamp",
   "summary": "Puppet Augeas_file module",
   "license": "Apache-2.0",
@@ -8,6 +8,7 @@
   "project_page": "https://github.com/camptocamp/puppet-augeas_file",
   "issues_url": "https://github.com/camptocamp/puppet-augeas_file/issues",
   "dependencies": [
+
   ],
   "requirements": [
     {
