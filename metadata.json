@@ -1,6 +1,6 @@
 {
   "name": "camptocamp-augeas_file",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "author": "Camptocamp",
   "summary": "Puppet Augeas_file module",
   "license": "Apache-2.0",
